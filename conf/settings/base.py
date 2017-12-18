@@ -11,9 +11,17 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env(DEBUG=(bool, False),) # set default values and casting
+environ.Env.read_env() # reading .env file
+
+# SETTINGS_DIR = /conf/settings
+SETTINGS_DIR = environ.Path(__file__) - 1
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# ROOT_DIR = /
+BASE_DIR = SETTINGS_DIR - 2
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,7 +31,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tihf+p+1gxjd)z&sq(v)h2=nm1)%6e(jl%&wpfo(oc^@nx@m4r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG') # False if not in os.environ
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+VENDOR_APPS = []
+LOCAL_APPS = []
+
+INSTALLED_APPS += VENDOR_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +90,7 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR('db.sqlite3'),
     }
 }
 
@@ -116,5 +130,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
+# Do not use a dir inside the project in production environments
+MEDIA_ROOT = BASE_DIR('media')
+MEDIA_URL = 'media/'
+STATIC_ROOT = BASE_DIR('static')
+STATIC_URL = 'static/'
