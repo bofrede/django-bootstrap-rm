@@ -3,8 +3,8 @@ set -e
 DIR=$(dirname "$0")
 cd ${DIR}/..
 
-echo "Running flake8"
+echo "Running eslint"
 npm run jscpd
-echo "flake8 OK :)"
+echo "eslint OK :)"
 
 
