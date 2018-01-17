@@ -21,8 +21,6 @@ This means the configuration si made by environment variables [(Factor III)](htt
 1. Create a new virtualenv with a meaningful name: `pyenv virtualenv 3.6.3 my_virtualenv`
 1. Create a `.python-version` file: `echo "my_virtualenv" > .python-version`
 1. Install the requirements: `pip install -r requirements/local.txt`
-1. Set the settings variable: `export DJANGO_SETTINGS_MODULE=conf.settings.local`
-1. Copy the `.env` file: cp conf/settings/.env.sample conf/settings/.env
 1. Setup the sqlite3 database: `./manage.py migrate`
 1. Create a super user: `./manage.py createsuperuser`
 
