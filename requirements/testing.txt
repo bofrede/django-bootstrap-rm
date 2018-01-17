@@ -1,2 +1,3 @@
 -r base.txt
 flake8==3.5.0 # This covers pycodestyle
+pylint==1.8.1
