@@ -49,7 +49,9 @@ INSTALLED_APPS = [
 ]
 
 VENDOR_APPS = []
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'project.apps.common',
+]
 
 INSTALLED_APPS += VENDOR_APPS + LOCAL_APPS
 
