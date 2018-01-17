@@ -14,7 +14,6 @@ import os
 import environ
 
 env = environ.Env(DEBUG=(bool, False),) # set default values and casting
-environ.Env.read_env() # reading .env file
 
 # SETTINGS_DIR = /conf/settings
 SETTINGS_DIR = environ.Path(__file__) - 1
@@ -134,6 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 # Do not use a dir inside the project in production environments
 MEDIA_ROOT = BASE_DIR('media')
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR('static')
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
