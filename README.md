@@ -48,9 +48,14 @@ This means the configuration si made by environment variables [(Factor III)](htt
 
 ## Run Lint/Style/CPD
 
+Some linters require [nodejs](https://nodejs.org/en/).
+Please install nodejs and then run `npm install`.
+
+
 * [Flake8](http://flake8.pycqa.org/en/latest/index.html): `scripts/flake8.sh`
 * [Pylint](https://pylint.readthedocs.io/en/latest/): `scripts/pylint.sh`
 * [Jscpd](https://github.com/kucherenko/jscpd): `scripts/jscpd.sh`
+* [Eslint](https://eslint.org/): `scripts/eslint.sh`
 
 ## Pycharm IDE
 
