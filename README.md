@@ -48,7 +48,9 @@ This means the configuration si made by environment variables [(Factor III)](htt
 
 ## Run Lint/Style/CPD
 
-TODO
+* [Flake8](http://flake8.pycqa.org/en/latest/index.html): `scripts/flake8.sh`
+* [Pylint](https://pylint.readthedocs.io/en/latest/): `scripts/pylint.sh`
+* [Jscpd](https://github.com/kucherenko/jscpd): `scripts/jscpd.sh`
 
 ## Pycharm IDE
 
