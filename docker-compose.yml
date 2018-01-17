@@ -1,0 +1,10 @@
+version: "3.4"
+
+services:
+  django:
+    build:
+      context: .
+      args:
+        requirements: requirements/local.txt # Use local requirements!
+    ports:
+      - "8000:8000"
