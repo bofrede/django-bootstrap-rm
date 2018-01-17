@@ -4,11 +4,14 @@
   "description": "## Setup",
   "main": "index.js",
   "scripts": {
-    "jscpd": "jscpd"
+    "jscpd": "jscpd",
+    "eslint": "eslint project/**/*.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-plugin-promise": "^3.6.0",
     "jscpd": "^0.6.17"
   }
 }
