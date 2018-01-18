@@ -1,1 +1,2 @@
 -r testing.txt
+-r psql.txt
