@@ -2,7 +2,7 @@ FROM python:3.6.4-alpine3.7
 
 WORKDIR /app
 
-RUN apk --no-cache add imagemagick zlib-dev jpeg-dev gcc build-base
+RUN apk --no-cache add imagemagick zlib-dev jpeg-dev gcc build-base postgresql-dev
 
 ARG requirements=requirements.txt
 
