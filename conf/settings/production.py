@@ -9,6 +9,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# DATABASE_URL='postgres://dbuser:dbpass@localhost/mydb'
 DATABASES = {
     'default': env.db()
 }
