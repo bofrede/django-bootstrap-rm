@@ -65,11 +65,6 @@ Please install nodejs and then run `npm install`.
 * mark directory Templates as "Templates folder" (right-click over directory in the "Project view")
 
 
-## Services
-
-TODO
-
-
 ## Project Management
 
 ### Remove fork relation
