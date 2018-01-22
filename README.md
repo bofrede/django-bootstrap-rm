@@ -11,6 +11,14 @@ Python 3 can be installed with [pyenv](https://github.com/pyenv/pyenv).
 3) See which python versions are available: `pyenv install --list`
 2) Install python 3. Example: `pyenv install 3.6.3` (3.6.3 or higher)
 
+
+Also [nodejs](https://nodejs.org/en/) is required for using `eslint` and `jscpd`.
+
+1. Install `nodejs`, this could be archived by using [nvm](https://github.com/creationix/nvm).
+1. Install `nodejs` version `7`
+1. Use `npm` for installing dependencies: `npm install`
+
+
 ### Setting's
 
 This project adopts [The 12 factor methodology](https://12factor.net/).
