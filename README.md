@@ -19,6 +19,8 @@ Also [nodejs](https://nodejs.org/en/) is required for using `eslint` and `jscpd`
 1. Use `npm` for installing dependencies: `npm install`
 
 
+Optionally Docker and Docker Compose can be installed for development.
+
 ### Setting's
 
 This project adopts [The 12 factor methodology](https://12factor.net/).
@@ -29,8 +31,12 @@ This means the configuration si made by environment variables [(Factor III)](htt
 1. Create a new virtualenv with a meaningful name: `pyenv virtualenv 3.6.3 my_virtualenv`
 1. Create a `.python-version` file: `echo "my_virtualenv" > .python-version`
 1. Install the requirements: `pip install -r requirements/local.txt`
-1. Setup the sqlite3 database: `./manage.py migrate`
-1. Create a super user: `./manage.py createsuperuser`
+
+### Development with Docker
+1. Build image: `docker-compose build`
+1. Start services: `docker-compose up`
+1. Migrate database: `docker-compose run django /app/venv/bin/python manage.py migrate`
+1. Create a super user: `docker-compose run django /app/venv/bin/python manage.py createsuperuser`
 
 ## Git hooks
 
