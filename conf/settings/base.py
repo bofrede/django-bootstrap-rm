@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 ]
 
-VENDOR_APPS = []
+VENDOR_APPS = [
+    'django_extensions',
+]
+
 LOCAL_APPS = [
     'project.apps.common',
 ]
