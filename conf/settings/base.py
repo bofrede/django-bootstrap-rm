@@ -39,12 +39,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'devartis_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 VENDOR_APPS = []
@@ -136,3 +138,5 @@ MEDIA_ROOT = BASE_DIR('media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR('static')
 STATIC_URL = '/static/'
+
+SITE_ID = 1
