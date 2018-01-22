@@ -7,9 +7,9 @@
 This projects requires python 3.6.
 Python 3 can be installed with [pyenv](https://github.com/pyenv/pyenv).
 
-1) Use [pyenv-installer](https://github.com/pyenv/pyenv-installer) for installing pyenv
-3) See which python versions are available: `pyenv install --list`
-2) Install python 3. Example: `pyenv install 3.6.3` (3.6.3 or higher)
+1. Use [pyenv-installer](https://github.com/pyenv/pyenv-installer) for installing pyenv
+1. See which python versions are available: `pyenv install --list`
+1. Install python 3. Example: `pyenv install 3.6.3` (3.6.3 or higher)
 
 
 Also [nodejs](https://nodejs.org/en/) is required for using `eslint` and `jscpd`.
