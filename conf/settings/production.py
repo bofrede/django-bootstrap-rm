@@ -7,6 +7,8 @@ ADMINS = (
     (env("ADMIN_NAME", default="Admin name"), env("ADMIN_EMAIL", default='admin_name@devartis.com')),
 )
 
+environ.Env.read_env(SETTINGS_DIR('.env'))
+
 MANAGERS = ADMINS
 
 # DATABASE_URL='postgres://dbuser:dbpass@localhost/mydb'
