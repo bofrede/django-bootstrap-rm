@@ -1,4 +1,4 @@
-Django==2.0.1
+Django==2.0.3
 django-environ==0.4.4
-django-extensions==1.9.9
+django-extensions==2.0.6
 https://github.com/devartis/django-devartis-admin/archive/0.1.7.zip
