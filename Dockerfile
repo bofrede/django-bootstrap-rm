@@ -1,33 +1,35 @@
-FROM python:3.6.4-alpine3.7
+FROM alpine:3.7
 
 ARG requirements=requirements.txt
 
-ENV BASE_DIR=/app/ \
+ENV TZ=America/Argentina/Buenos_Aires \
+    BASE_DIR=/app/ \
     PYTHON_VENV_DIR=/app/venv/ \
     MEDIA_ROOT=/app/media/ \
     STATIC_ROOT=/app/static/ \
     APP_DIR=/app/code/ \
-    APP_USER=webapp
+    APP_USER=webapp \
+    DJANGO_SETTINGS_MODULE=conf.settings.production
 
-RUN apk --no-cache add imagemagick zlib-dev jpeg-dev gcc build-base postgresql-dev && \
+WORKDIR $APP_DIR
+
+COPY requirements/ requirements/
+COPY requirements.txt manage.py $APP_DIR
+
+RUN apk add --no-cache python3 imagemagick zlib-dev jpeg-dev build-base postgresql-dev && \
+    apk add --no-cache git gcc python3-dev libc-dev --virtual build && \
     mkdir $APP_DIR $MEDIA_ROOT $STATIC_ROOT -p && \
     addgroup -S $APP_USER && \
     adduser -D -H -S $APP_USER $APP_USER && \
-    chown $APP_USER:$APP_USER -Rc $BASE_DIR
+    chown $APP_USER:$APP_USER -Rc $BASE_DIR && \
+    python3 -m pip install --no-cache -r $requirements && \
+    apk del --no-cache build
 
-WORKDIR $APP_DIR
 USER $APP_USER
 
-COPY requirements requirements/
-COPY requirements.txt manage.py $APP_DIR
-
-RUN python -m venv $PYTHON_VENV_DIR && \
-    source $PYTHON_VENV_DIR/bin/activate && \
-    pip install --no-cache -r $requirements
-
 COPY conf conf/
-COPY project project/
+COPY api_management api_management/
 
 EXPOSE 8000
 
-CMD ${PYTHON_VENV_DIR}bin/python manage.py runserver 0.0.0.0:8000
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
