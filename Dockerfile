@@ -28,7 +28,7 @@ RUN apk add --no-cache python3 imagemagick zlib-dev jpeg-dev build-base postgres
 USER $APP_USER
 
 COPY conf conf/
-COPY api_management api_management/
+COPY project project/
 
 EXPOSE 8000
 
