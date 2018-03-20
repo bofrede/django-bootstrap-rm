@@ -33,10 +33,12 @@ This means the configuration si made by environment variables [(Factor III)](htt
 1. Install the requirements: `pip install -r requirements/local.txt`
 
 ### Development with Docker
+
 1. Build image: `docker-compose build`
 1. Start services: `docker-compose up`
-1. Migrate database: `docker-compose run django /app/venv/bin/python manage.py migrate`
-1. Create a super user: `docker-compose run django /app/venv/bin/python manage.py createsuperuser`
+1. Migrate database: `docker-compose run --rm django python3 manage.py migrate`
+1. Create a super user: `docker-compose run --rm django python3 manage.py createsuperuser`
+1. Restart django: `docker-compose restart django`
 
 ## Git hooks
 
