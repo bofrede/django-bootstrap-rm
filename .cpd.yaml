@@ -4,3 +4,4 @@ files:
   - "project/**/*"
 exclude:
   - "**/migrations/*"
+limit: 0.0

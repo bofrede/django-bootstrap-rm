@@ -1,3 +1,12 @@
+env/
+.idea/
+.vagrant/
+*.retry
+*.sublime-*
+.python-version
+vault_password.txt
+vault_pass.txt
+wks.*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -74,7 +83,6 @@ target/
 .ipynb_checkpoints
 
 # pyenv
-.python-version
 
 # celery beat schedule file
 celerybeat-schedule
@@ -85,7 +93,6 @@ celerybeat-schedule
 # Environments
 .env
 .venv
-env/
 venv/
 ENV/
 env.bak/
@@ -103,6 +110,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-.idea/
 *.sqlite3
 node_modules/
+*.db

@@ -4,7 +4,7 @@ DIR=$(dirname "$0")
 cd ${DIR}/..
 
 echo "Running pylint"
-pylint project/
+pylint --load-plugins pylint_django project/
 echo "pylint OK :)"
 
 

@@ -2,6 +2,6 @@
 
 exclude = .git,__pycache__,docs/,requirements/,conf/settings/, .env/, **/migrations/
 show-source = True
-max-line-length = 100
 statistics = True
 count = True
+max-line-length = 100
