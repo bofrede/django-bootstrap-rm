@@ -113,3 +113,4 @@ venv.bak/
 *.sqlite3
 node_modules/
 *.db
+.pytest_cache/
