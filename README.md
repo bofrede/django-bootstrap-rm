@@ -131,6 +131,11 @@ Save the form and test your integration with the button **Test settings and save
 
 > Open-source error tracking that helps developers monitor and fix crashes in real time. Iterate continuously. Boost efficiency. Improve user experience.
 
+
+### Deployment with Ansible
+
+This project can be deployed with [deploy2-sample](https://gitlab.devartis.com/samples/deploy2-sample).
+
 ### Integration
 
 Based in [official integration](https://docs.sentry.io/clients/python/integrations/django/) with Django.
