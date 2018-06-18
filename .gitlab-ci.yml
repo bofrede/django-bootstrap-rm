@@ -31,7 +31,7 @@ build_sonar:
     paths:
       - $SONAR_DIR
   artifacts:
-    expires_in: "1 hrs"
+    expire_in: "1 hrs"
     paths:
       - $SONAR_DIR
   before_script:
