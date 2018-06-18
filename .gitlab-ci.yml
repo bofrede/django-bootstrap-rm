@@ -39,8 +39,6 @@ build_sonar:
   script:
     - mkdir -p $SONAR_DIR
     - wget $SONAR_SCANNER_URL -O $SONAR_DIR/$SONAR_SCANNER_FILE
-    - unzip $SONAR_DIR/$SONAR_SCANNER_FILE
-    - mv sonar-scanner-*/* $SONAR_DIR
 
 build:
   stage: build
@@ -102,6 +100,9 @@ eslint:
 sonarqube:
   stage: test
   image: java:8-alpine
+  before_script:
+    - unzip $SONAR_DIR/$SONAR_SCANNER_FILE
+    - mv sonar-scanner-*/* $SONAR_DIR
   script:
     - time $SONAR_DIR/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKE
   dependencies:
