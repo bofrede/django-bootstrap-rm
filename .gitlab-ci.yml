@@ -3,6 +3,9 @@ variables:
   NODE_MODULES_DIR: ./node_modules
   PIP_CACHE_DIR: ./.pip-cache
   PYTHON_VENV_DIR: ./.env
+  SONAR_DIR: ./sonar
+  SONAR_SCANNER_FILE: sonar-scanner.zip
+  SONAR_SCANNER_URL: https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
 
 stages:
   - build
@@ -20,6 +23,24 @@ build_js:
     paths:
       - $NODE_MODULES_DIR
   script: npm install
+
+build_sonar:
+  state: build
+  image: alpine:3.7
+  cache:
+    paths:
+      - $SONAR_DIR
+  artifacts:
+    expires_in: "1 hrs"
+    paths:
+      - $SONAR_DIR
+  before_script:
+    - apk add --no-cache unzip
+  script:
+    - mkdir -p $SONAR_DIR
+    - wget $SONAR_SCANNER_URL -O $SONAR_DIR/$SONAR_SCANNER_FILE
+    - unzip $SONAR_DIR/$SONAR_SCANNER_FILE
+    - mv sonar-scanner-*/* $SONAR_DIR
 
 build:
   stage: build
@@ -80,10 +101,11 @@ eslint:
 
 sonarqube:
   stage: test
-  image: node:8.9-alpine
-  script: time sh scripts/sonar.sh
+  image: java:8-alpine
+  script:
+    - time $SONAR_DIR/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKE
   dependencies:
-    - build_js
+    - build_sonar
 #  only:
 #    - master
 
