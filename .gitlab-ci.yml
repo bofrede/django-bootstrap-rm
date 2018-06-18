@@ -82,10 +82,10 @@ sonarqube:
   stage: test
   image: node:8.9-alpine
   script: time sh scripts/sonar.sh
-  only:
-    - master
   dependencies:
     - build_js
+#  only:
+#    - master
 
 # This is an example of how to configure Continuous Delivery
 # You should automatically deploy to testing every new commit in master branch.
