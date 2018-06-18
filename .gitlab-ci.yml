@@ -93,8 +93,8 @@ sonarqube:
     - sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' $SONAR_DIR/bin/sonar-scanner
   script:
     - time $SONAR_DIR/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKEN
-#  only:
-#    - master
+  only:
+    - master
 
 # This is an example of how to configure Continuous Delivery
 # You should automatically deploy to testing every new commit in master branch.
