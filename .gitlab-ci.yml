@@ -78,6 +78,13 @@ eslint:
   dependencies:
     - build_js
 
+sonarqube:
+  stage: test
+  image: node:8.9-alpine
+  script: time sh scripts/sonar.sh
+  dependencies:
+    - build_js
+
 # This is an example of how to configure Continuous Delivery
 # You should automatically deploy to testing every new commit in master branch.
 # You should automatically deploy to staging every new tag.
