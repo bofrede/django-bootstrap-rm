@@ -4,7 +4,7 @@
   "description": "## Setup",
   "main": "index.js",
   "scripts": {
-    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=django2-sample -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKEN",
+    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKEN",
     "jscpd": "jscpd",
     "eslint": "eslint project/**/*.js"
   },

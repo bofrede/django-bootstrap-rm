@@ -5,8 +5,8 @@ cd ${DIR}/..
 
 echo "Running sonar-scanner"
 
-if [[ -z "$SONARQUBE_TOKEN" ]]; then
-    echo "No 'SONARQUBE_TOKEN' variable, skipping..."
+if [[ -z "$SONARQUBE_TOKEN" ]] || [[ -z "$SONARQUBE_PROJECT_KEY" ]]; then
+    echo "No 'SONARQUBE_TOKEN' OR 'SONARQUBE_PROJECT_KEY' variables, skipping..."
 else
     npm run sonar-scanner
 fi
