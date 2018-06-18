@@ -83,13 +83,14 @@ eslint:
 
 sonarqube:
   stage: test
-  image: java:8-alpine
+  image: java:8-jdk-alpine
   before_script:
     - apk add --no-cache unzip ca-certificates wget
     - mkdir -p $SONAR_DIR
     - wget $SONAR_SCANNER_URL -O $SONAR_DIR/$SONAR_SCANNER_FILE
     - unzip $SONAR_DIR/$SONAR_SCANNER_FILE
     - mv sonar-scanner-*/* $SONAR_DIR
+    - sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' $SONAR_DIR/bin/sonar-scanner
   script:
     - time $SONAR_DIR/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKE
 #  only:
