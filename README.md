@@ -101,13 +101,26 @@ To copy this structure you have to:
 
 ## Sonarqube integration
 
+Got to [ccq](https://ccq.devartis.com) and log-in with your gitlab account.
+
 The current `.gitlab-ci.yml` file already has a job that runs a sonar-scanner on master builds.
 You only need to add two secret variables:
 
 - SONARQUBE_TOKEN
 - SONARQUBE_PROJECT_KEY
 
-Got to [ccq](https://ccq.devartis.com) for more information.
+First, go to https://ccq.devartis.com and create a new project.
+When creating a new project in Sonarqube, a new "project key" will be requested,
+that's the value of `SONARQUBE_PROJECT_KEY`.
+
+After that, go to your profile in https://ccq.devartis.com/account, under [security](https://ccq.devartis.com/account/security/)
+you will be able to generate a new token, this is the value of `SONARQUBE_TOKEN`.
+
+Now go to the repository's settings page in http://gitlab.devartis.com.
+Under **Settings > CI/CD** there's a "Secret variables" section.
+Add these two variables there.
+
+Now on every build on master branch a Sonarqub scanner will be run.
 
 ## Setup slack integration
 
