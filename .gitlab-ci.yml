@@ -82,6 +82,8 @@ sonarqube:
   stage: test
   image: node:8.9-alpine
   script: time sh scripts/sonar.sh
+  only:
+    - master
   dependencies:
     - build_js
 
