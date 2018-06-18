@@ -99,6 +99,16 @@ To copy this structure you have to:
 1. Get a [Gitlab access token](https://gitlab.devartis.com/profile/personal_access_tokens) and put it on [.gitlab-copy.yml](/.gitlab-copy.yml)
 1. Run gitlab-copy: `gitlab-copy -y .gitlab-copy.yml`
 
+## Sonarqube integration
+
+The current `.gitlab-ci.yml` file already has a job that runs a sonar-scanner on master builds.
+You only need to add two secret variables:
+
+- SONARQUBE_TOKEN
+- SONARQUBE_PROJECT_KEY
+
+Got to [ccq](https://ccq.devartis.com) for more information.
+
 ## Setup slack integration
 
 You can set up a WebHook notification for your project.
