@@ -3,6 +3,9 @@ variables:
   NODE_MODULES_DIR: ./node_modules
   PIP_CACHE_DIR: ./.pip-cache
   PYTHON_VENV_DIR: ./.env
+  SONAR_DIR: ./sonar
+  SONAR_SCANNER_FILE: sonar-scanner.zip
+  SONAR_SCANNER_URL: https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
 
 stages:
   - build
@@ -77,6 +80,21 @@ eslint:
   script: time sh scripts/eslint.sh
   dependencies:
     - build_js
+
+sonarqube:
+  stage: test
+  image: java:8-jdk-alpine
+  before_script:
+    - apk add --no-cache unzip ca-certificates wget
+    - mkdir -p $SONAR_DIR
+    - wget $SONAR_SCANNER_URL -O $SONAR_DIR/$SONAR_SCANNER_FILE
+    - unzip $SONAR_DIR/$SONAR_SCANNER_FILE
+    - mv sonar-scanner-*/* $SONAR_DIR
+    - sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' $SONAR_DIR/bin/sonar-scanner
+  script:
+    - time $SONAR_DIR/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKEN
+  only:
+    - master
 
 # This is an example of how to configure Continuous Delivery
 # You should automatically deploy to testing every new commit in master branch.
