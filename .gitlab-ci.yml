@@ -85,9 +85,9 @@ sonarqube:
   stage: test
   image: java:8-alpine
   before_script:
+    - apk add --no-cache unzip ca-certificates wget
     - mkdir -p $SONAR_DIR
     - wget $SONAR_SCANNER_URL -O $SONAR_DIR/$SONAR_SCANNER_FILE
-    - apk add --no-cache unzip
     - unzip $SONAR_DIR/$SONAR_SCANNER_FILE
     - mv sonar-scanner-*/* $SONAR_DIR
   script:
