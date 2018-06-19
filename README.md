@@ -120,7 +120,7 @@ Now go to the repository's settings page in http://gitlab.devartis.com.
 Under **Settings > CI/CD** there's a "Secret variables" section.
 Add these two variables there.
 
-Now on every build on master branch a Sonarqub scanner will be run.
+Now on every build on master branch a Sonarqube scanner will be run.
 
 ## Setup slack integration
 
@@ -140,7 +140,7 @@ Then click in the item "Incoming WebHooks" and then in the **Add configuration**
 Select a channel where you like to receive notifications (Please do not spam us!).
 After selecting the channel, configure the integration (Username, icon, etc) and copy the `Webhook URL` you will needed in the next step.
 
-###  Gilab settings
+###  Gitlab settings
 
 In your project settings, there a section called "Integrations".
 One of them is called "Slack notifications", click on it.
