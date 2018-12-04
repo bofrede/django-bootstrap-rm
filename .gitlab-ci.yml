@@ -59,7 +59,7 @@ migration_test:
 
 tests:
   <<: *test_definition
-  script: time sh scripts/tests.sh --cov-config .coveragerc --cov=events --cov-report term --cov-report xml:coverage-reports/coverage-master.xml
+  script: time sh scripts/tests.sh --cov-config .coveragerc --cov=project --cov-report term --cov-report xml:coverage-reports/coverage-master.xml
   artifacts:
     expire_in: "1 hrs"
     paths:
