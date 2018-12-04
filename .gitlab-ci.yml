@@ -5,7 +5,7 @@ variables:
   PYTHON_VENV_DIR: ./.env
   SONAR_DIR: ./sonar
   SONAR_SCANNER_FILE: sonar-scanner.zip
-  SONAR_SCANNER_URL: https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
+  SONAR_SCANNER_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
 
 stages:
   - build
