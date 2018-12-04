@@ -116,3 +116,5 @@ node_modules/
 .pytest_cache/
 .scannerwork/
 sonar/
+
+coverage-reports/

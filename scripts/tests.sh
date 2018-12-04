@@ -3,8 +3,8 @@ set -e
 DIR=$(dirname "$0")
 cd ${DIR}/..
 
-echo "py.test py.test"
-py.test
+echo "Running py.test"
+env PYTHONDONTWRITEBYTECODE=1 py.test -v $@
 echo "py.test OK :)"
 
 
