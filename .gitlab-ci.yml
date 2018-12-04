@@ -6,10 +6,12 @@ variables:
   SONAR_DIR: ./sonar
   SONAR_SCANNER_FILE: sonar-scanner.zip
   SONAR_SCANNER_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
+  COVERAGE_XML: ./coverage-reports/
 
 stages:
   - build
   - test
+  - sonarqube
   - deploy
 
 build_js:
@@ -57,7 +59,11 @@ migration_test:
 
 tests:
   <<: *test_definition
-  script: time sh scripts/tests.sh
+  script: time sh scripts/tests.sh --cov-config .coveragerc --cov=events --cov-report term --cov-report xml:coverage-reports/coverage-master.xml
+  artifacts:
+    expire_in: "1 hrs"
+    paths:
+      - $COVERAGE_XML
 
 pylint:
   <<: *test_definition
@@ -82,7 +88,7 @@ eslint:
     - build_js
 
 sonarqube:
-  stage: test
+  stage: sonarqube
   image: java:8-jdk-alpine
   before_script:
     - apk add --no-cache unzip ca-certificates wget
@@ -95,6 +101,8 @@ sonarqube:
     - time $SONAR_DIR/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKEN
   only:
     - master
+  dependencies:
+    - tests
 
 # This is an example of how to configure Continuous Delivery
 # You should automatically deploy to testing every new commit in master branch.
