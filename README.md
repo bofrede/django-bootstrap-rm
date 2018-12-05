@@ -101,7 +101,7 @@ To copy this structure you have to:
 
 ## Sonarqube integration
 
-Got to [ccq](https://ccq.devartis.com) and log-in with your gitlab account.
+Go to [ccq](https://ccq.devartis.com) and log-in with your gitlab account.
 
 The current `.gitlab-ci.yml` file already has a job that runs a sonar-scanner on master builds.
 You only need to add two secret variables:
