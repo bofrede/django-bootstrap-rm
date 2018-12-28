@@ -56,6 +56,9 @@ coverage.xml
 *.cover
 .hypothesis/
 
+coverage-reports/
+xunit-reports/
+
 # Translations
 *.mo
 *.pot

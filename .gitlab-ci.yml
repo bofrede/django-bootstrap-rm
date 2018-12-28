@@ -7,6 +7,7 @@ variables:
   SONAR_SCANNER_FILE: sonar-scanner.zip
   SONAR_SCANNER_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
   COVERAGE_XML: ./coverage-reports/
+  REPORT_XML: ./xunit-reports/
 
 stages:
   - build
@@ -59,11 +60,12 @@ migration_test:
 
 tests:
   <<: *test_definition
-  script: time sh scripts/tests.sh --cov-config .coveragerc --cov=project --cov-report term --cov-report xml:coverage-reports/coverage-master.xml
+  script: time sh scripts/tests.sh --cov-config .coveragerc --cov=project --cov-report term --cov-report xml:coverage-reports/coverage-master.xml --junitxml=xunit-reports/xunit-result-master.xml
   artifacts:
     expire_in: "1 hrs"
     paths:
       - $COVERAGE_XML
+      - $REPORT_XML
 
 pylint:
   <<: *test_definition
@@ -98,7 +100,7 @@ sonarqube:
     - mv sonar-scanner-*/* $SONAR_DIR
     - sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' $SONAR_DIR/bin/sonar-scanner
   script:
-    - time $SONAR_DIR/bin/sonar-scanner -D sonar.host.url=https://ccq.devartis.com/ -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=. -Dsonar.login=$SONARQUBE_TOKEN
+    - time $SONAR_DIR/bin/sonar-scanner -D sonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.login=$SONARQUBE_TOKEN
   only:
     - master
   dependencies:
