@@ -16,8 +16,8 @@ DATABASES = {
     'default': env.db()
 }
 
-MEDIA_ROOT = env('MEDIA_ROOT')
-STATIC_ROOT = env('STATIC_ROOT')
+MEDIA_ROOT = env('MEDIA_ROOT', default=BASE_DIR('media'))
+STATIC_ROOT = env('STATIC_ROOT', default=BASE_DIR('static'))
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
