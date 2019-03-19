@@ -1,0 +1,43 @@
+image: python:3.6.0
+
+pipelines:
+  default:
+    - step:
+        name: Build
+        caches:
+          - pip
+          - pvenv
+        script:
+          - python -m venv ./.venv
+          - source ./.venv/bin/activate
+          - pip install -r requirements/local.txt;
+        artifacts: # defining the artifacts to be passed to each future step.
+          - .venv/**
+    - parallel:
+      - step:
+          name: Tests
+          script:
+            - apt-get update;
+            - apt-get install -y gdal-bin node-less;
+            - source ./.venv/bin/activate;
+            - cd healthywage/; pytest --cov --cov-config .coveragerc --junitxml=../test-results/xunit-result-master.xml;
+      - step:
+          name: Flake8 on changed files
+          script:
+            - source ./.venv/bin/activate;
+            - git fetch origin master:master
+            - ./bin/lint/flake8.sh
+      - step:
+          name: Jscpd report
+          image: node:10.15-alpine
+          caches:
+            - wgnode
+          script:
+            - apk add --no-cache python2 make g++ git
+            - cd healthywage/; npm install; npm run jscpd || true; # "|| true" means "Allow to fail"
+          artifacts:
+            - healthywage/report/*.html
+definitions:
+  caches:
+    pvenv: .venv
+    wgnode: healthywage/node_modules/
