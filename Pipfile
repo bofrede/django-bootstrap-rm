@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest-django = "*"
+pylint-django = "*"
+faker = "*"
+pytest-cov = "*"
+
+[packages]
+django-environ = "==0.4.4"
+django-extensions = "==2.0.7"
+6a7e941 = {file = "https://github.com/devartis/django-devartis-admin/archive/0.1.7.zip"}
+psycopg2-binary = "==2.7.4"
+gunicorn = "==19.8.1"
+raven = "==6.7.0"
+Django = "==2.0.5"
+flake8 = "*"
+
+[requires]
+python_version = "3.6"
