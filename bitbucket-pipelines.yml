@@ -2,14 +2,13 @@ pipelines:
   default:  
     - step:
         name: Build
+        image: python:3.6.0
         caches:
           - pipenv
         script:
           - pip install --user pipenv
           - export PATH=$PATH:/root/.local/bin > /root/.profile
           - pipenv install --dev
-        artifacts: # defining the artifacts to be passed to each future step.
-          - .venv/**    
     - parallel:
       - step:
           name: PyTest
