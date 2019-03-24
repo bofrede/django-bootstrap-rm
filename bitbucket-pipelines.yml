@@ -20,8 +20,7 @@ pipelines:
             - apt-get install -y gdal-bin node-less;
             - pip install --user pipenv
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv shell
-            - pytest --cov --cov-config .coveragerc --junitxml=../test-results/xunit-result-master.xml;
+            - pipenv run pytest --cov --cov-config .coveragerc --junitxml=../test-results/xunit-result-master.xml;
       - step:
           name: Flake8
           image: python:3.6.0
@@ -30,8 +29,7 @@ pipelines:
           script:   
             - pip install --user pipenv
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv shell
-            - ./scripts/flake8.sh
+            - pipenv run flake8
       - step:
           name: Jscpd report
           image: node:10.15-alpine
