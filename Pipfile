@@ -5,9 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 pytest-django = "*"
+pytest-cov = "*"
+pylint = "*"
 pylint-django = "*"
 faker = "*"
-pytest-cov = "*"
+flake8 = "*"
 
 [packages]
 django-environ = "==0.4.4"
@@ -17,7 +19,6 @@ psycopg2-binary = "==2.7.4"
 gunicorn = "==19.8.1"
 raven = "==6.7.0"
 Django = "==2.0.5"
-flake8 = "*"
 
 [requires]
 python_version = "3.6"
