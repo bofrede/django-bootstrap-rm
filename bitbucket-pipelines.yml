@@ -1,9 +1,11 @@
 image: python:3.6.0
 
-pipenvInstall: &pipenvInstall 
-  - pip install --user pipenv
-  - export PATH=$PATH:/root/.local/bin > /root/.profile
-  - pipenv install --dev
+.pipenv_install: &pipenv_install 
+  script:
+    - pip install --user pipenv
+    - export PATH=$PATH:/root/.local/bin > /root/.profile
+    - pipenv install --dev
+
 
 pipelines:
   default:
@@ -12,8 +14,8 @@ pipelines:
           name: Tests
           caches:
             - pipenv
-          script:
-            - <<: *pipenvInstall 
+          <<: *pipenv_install   
+          script:            
             - apt-get update;
             - apt-get install -y gdal-bin node-less;
             - pipenv shell
@@ -22,8 +24,8 @@ pipelines:
           name: Flake8 on changed files
           caches:
             - pipenv
-          script:
-            - <<: *pipenvInstall 
+          <<: *pipenv_install 
+          script:            
             - pipenv shell
             - git fetch origin master:master
             - ./scripts/flake8.sh
