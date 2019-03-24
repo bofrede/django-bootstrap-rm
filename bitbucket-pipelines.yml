@@ -1,44 +1,39 @@
-image: python:3.6.0
-
-.pipenv_install: &pipenv_install 
-  script:
-    - pip install --user pipenv
-    - export PATH=$PATH:/root/.local/bin > /root/.profile
-    - pipenv install --dev
-
-
 pipelines:
   default:
     - parallel:
       - step:
-          name: Tests
+          name: PyTest
+          image: python:3.6.0
           caches:
             - pipenv
-          <<: *pipenv_install   
           script:            
             - apt-get update;
             - apt-get install -y gdal-bin node-less;
+            - pip install --user pipenv
+            - export PATH=$PATH:/root/.local/bin > /root/.profile
+            - pipenv install --dev
             - pipenv shell
             - pytest --cov --cov-config .coveragerc --junitxml=../test-results/xunit-result-master.xml;
       - step:
-          name: Flake8 on changed files
+          name: Flake8
+          image: python:3.6.0
           caches:
             - pipenv
-          <<: *pipenv_install 
-          script:            
+          script:   
+            - pip install --user pipenv
+            - export PATH=$PATH:/root/.local/bin > /root/.profile
+            - pipenv install --dev
             - pipenv shell
-            - git fetch origin master:master
             - ./scripts/flake8.sh
-#      - step:
-#          name: Jscpd report
-#          image: node:10.15-alpine
-#          caches:
-#            - wgnode
-#          script:
-#            - apt-get install npm
-#            - npm install; npm run jscpd || true; # "|| true" means "Allow to fail"
-#          artifacts:
-#            - report/*.html
+      - step:
+          name: Jscpd report
+          image: node:10.15-alpine
+          caches:
+            - wgnode
+          script:
+            - npm install; npm run jscpd || true; # "|| true" means "Allow to fail"
+          artifacts:
+            - report/*.html
 definitions:
   caches:
     pipenv: /root/.local/share/virtualenvs
