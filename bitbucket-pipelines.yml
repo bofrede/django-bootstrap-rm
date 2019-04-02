@@ -31,6 +31,15 @@ pipelines:
             - export PATH=$PATH:/root/.local/bin > /root/.profile
             - pipenv run flake8
       - step:
+          name: Pylint
+          image: python:3.6.0
+          caches:
+            - pipenv
+          script:   
+            - pip install --user pipenv
+            - export PATH=$PATH:/root/.local/bin > /root/.profile
+            - pipenv run pylint --load-plugins pylint_django project
+      - step:
           name: Jscpd report
           image: node:10.15-alpine
           caches:
@@ -39,6 +48,14 @@ pipelines:
             - npm install; npm run jscpd || true; # "|| true" means "Allow to fail"
           artifacts:
             - report/*.html
+      - step:
+          name: ES Lint
+          image: node:10.15-alpine
+          caches:
+            - wgnode
+          script:
+            - npm install; npm run eslint || true; # "|| true" means "Allow to fail"
+
 definitions:
   caches:
     pipenv: /root/.local/share/virtualenvs
