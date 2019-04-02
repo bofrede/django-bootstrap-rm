@@ -68,6 +68,7 @@ xunit-reports/
 .static_storage/
 .media/
 local_settings.py
+local.py
 
 # Flask stuff:
 instance/
