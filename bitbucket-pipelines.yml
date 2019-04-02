@@ -20,7 +20,7 @@ pipelines:
             - apt-get install -y gdal-bin node-less;
             - pip install --user pipenv
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv run pytest --cov --cov-config .coveragerc --junitxml=../test-results/xunit-result-master.xml;
+            - pipenv run pytest -c scripts/pytest.ini --cov --cov-config scripts/.coveragerc --junitxml=../test-results/xunit-result-master.xml;
       - step:
           name: Flake8
           image: python:3.6.0
@@ -29,7 +29,7 @@ pipelines:
           script:   
             - pip install --user pipenv
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv run flake8
+            - pipenv run flake8 --config=scripts/.flake8
       - step:
           name: Pylint
           image: python:3.6.0
@@ -38,14 +38,14 @@ pipelines:
           script:   
             - pip install --user pipenv
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv run pylint --load-plugins pylint_django project
+            - pipenv run pylint --rcfile=scripts/.pylintrc project
       - step:
           name: Jscpd report
           image: node:10.15-alpine
           caches:
             - wgnode
           script:
-            - npm install; npm run jscpd || true; # "|| true" means "Allow to fail"
+            - npm install; npm run jscpd --config scripts/.cpd.yaml || true; # "|| true" means "Allow to fail"
           artifacts:
             - report/*.html
       - step:
