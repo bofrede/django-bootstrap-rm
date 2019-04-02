@@ -16,9 +16,9 @@ pipelines:
           caches:
             - pipenv
           script:            
-            - pip install --user pipenv
-            - pipenv install --dev
+            - pip install --user pipenv            
             - export PATH=$PATH:/root/.local/bin > /root/.profile
+            - pipenv install --dev
             - pipenv run pytest -c scripts/pytest.ini --cov --cov-config scripts/.coveragerc --junitxml=../test-results/xunit-result-master.xml;
       - step:
           name: Flake8
@@ -26,9 +26,9 @@ pipelines:
           caches:
             - pipenv
           script:   
-            - pip install --user pipenv
-            - pipenv install --dev
+            - pip install --user pipenv            
             - export PATH=$PATH:/root/.local/bin > /root/.profile
+            - pipenv install --dev
             - pipenv run flake8 --config=scripts/.flake8
       - step:
           name: Pylint
@@ -36,9 +36,9 @@ pipelines:
           caches:
             - pipenv
           script:   
-            - pip install --user pipenv
-            - pipenv install --dev
+            - pip install --user pipenv            
             - export PATH=$PATH:/root/.local/bin > /root/.profile
+            - pipenv install --dev
             - pipenv run pylint --rcfile=scripts/.pylintrc project
       - step:
           name: Jscpd report
