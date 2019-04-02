@@ -11,6 +11,7 @@ pylint = "*"
 pylint-django = "*"
 faker = "*"
 flake8 = "*"
+werkzeug = "*"
 
 [packages]
 django = "==2.*"
