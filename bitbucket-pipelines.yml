@@ -1,21 +1,22 @@
 pipelines:
   default:  
-    - step:
-        name: Build
-        image: python:3.6.0
-        caches:
-          - pipenv
-        script:
-          - pip install --user pipenv
-          - export PATH=$PATH:/root/.local/bin > /root/.profile
-          - pipenv install --dev
-    - step:
-        name: Build JS
-        image: node:10.15-alpine
-        caches:
-          - wgnode
-        script:
-          - npm install
+    - parallel:
+      - step:
+          name: Build
+          image: python:3.6.0
+          caches:
+            - pipenv
+          script:
+            - pip install --user pipenv
+            - export PATH=$PATH:/root/.local/bin > /root/.profile
+            - pipenv install --dev
+      - step:
+          name: Build JS
+          image: node:10.15.0
+          caches:
+            - wgnode
+          script:
+            - npm install
     - parallel:
       - step:
           name: PyTest
@@ -46,7 +47,7 @@ pipelines:
             - pipenv run pylint --rcfile=scripts/.pylintrc project
       - step:
           name: Jscpd report
-          image: node:10.15-alpine
+          image: node:10.15.0
           caches:
             - wgnode
           script:
@@ -55,7 +56,7 @@ pipelines:
             - report/*.html
       - step:
           name: ES Lint
-          image: node:10.15-alpine
+          image: node:10.15.0
           caches:
             - wgnode
           script:
