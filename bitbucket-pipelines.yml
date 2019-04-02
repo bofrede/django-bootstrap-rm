@@ -16,9 +16,8 @@ pipelines:
           caches:
             - pipenv
           script:            
-            - apt-get update;
-            - apt-get install -y gdal-bin node-less;
             - pip install --user pipenv
+            - pipenv install --dev
             - export PATH=$PATH:/root/.local/bin > /root/.profile
             - pipenv run pytest -c scripts/pytest.ini --cov --cov-config scripts/.coveragerc --junitxml=../test-results/xunit-result-master.xml;
       - step:
@@ -28,6 +27,7 @@ pipelines:
             - pipenv
           script:   
             - pip install --user pipenv
+            - pipenv install --dev
             - export PATH=$PATH:/root/.local/bin > /root/.profile
             - pipenv run flake8 --config=scripts/.flake8
       - step:
@@ -37,6 +37,7 @@ pipelines:
             - pipenv
           script:   
             - pip install --user pipenv
+            - pipenv install --dev
             - export PATH=$PATH:/root/.local/bin > /root/.profile
             - pipenv run pylint --rcfile=scripts/.pylintrc project
       - step:
