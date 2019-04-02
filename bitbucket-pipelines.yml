@@ -9,6 +9,13 @@ pipelines:
           - pip install --user pipenv
           - export PATH=$PATH:/root/.local/bin > /root/.profile
           - pipenv install --dev
+    - step:
+        name: Build JS
+        image: node:10.15-alpine
+        caches:
+          - wgnode
+        script:
+          - npm install
     - parallel:
       - step:
           name: PyTest
@@ -18,7 +25,6 @@ pipelines:
           script:            
             - pip install --user pipenv            
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv install --dev
             - pipenv run pytest -c scripts/pytest.ini --cov --cov-config scripts/.coveragerc --junitxml=../test-results/xunit-result-master.xml;
       - step:
           name: Flake8
@@ -28,7 +34,6 @@ pipelines:
           script:   
             - pip install --user pipenv            
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv install --dev
             - pipenv run flake8 --config=scripts/.flake8
       - step:
           name: Pylint
@@ -38,7 +43,6 @@ pipelines:
           script:   
             - pip install --user pipenv            
             - export PATH=$PATH:/root/.local/bin > /root/.profile
-            - pipenv install --dev
             - pipenv run pylint --rcfile=scripts/.pylintrc project
       - step:
           name: Jscpd report
@@ -46,7 +50,7 @@ pipelines:
           caches:
             - wgnode
           script:
-            - npm install; npm run jscpd --config scripts/.cpd.yaml || true; # "|| true" means "Allow to fail"
+            - npm run jscpd --config scripts/.cpd.yaml || true; # "|| true" means "Allow to fail"
           artifacts:
             - report/*.html
       - step:
@@ -55,7 +59,7 @@ pipelines:
           caches:
             - wgnode
           script:
-            - npm install; npm run eslint || true; # "|| true" means "Allow to fail"
+            - npm run eslint || true; # "|| true" means "Allow to fail"
 
 definitions:
   caches:
