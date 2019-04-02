@@ -4,8 +4,32 @@
 
 ### Requirements
 
-This projects requires python 3.6.
-Python 3 can be installed with [pyenv](https://github.com/pyenv/pyenv).
+In order to use this project you'll need to have the following tools installed in your development box.
+* Docker
+* Python 3
+* npm
+* Python editor
+
+Docker
+
+[docker](https://www.docker.com/) is a tool for running containers that will help us launch all the different environments we need for our development process. Search for the proper installation instructions depending on your OS here https://docs.docker.com/install/ and then validate it was installed properly by running
+
+`docker -v`
+
+[docker-compose](https://docs.docker.com/compose/) will be required to launch multiple containers at the same time. Check for the proper installation instractinos here https://docs.docker.com/compose/install/
+
+`docker-compose -v`
+
+
+Python 3
+
+Python2 will be sunsetting [in 2020](https://www.python.org/dev/peps/pep-0373/#update) so using Python 3 is a must. Python 3 should come pre-installed with every modern operating system. You can validate it is installed by running:
+
+`python3` or `python --version`
+
+Note: The default python interpreter might be set to python 2. This doesn't matter as long as Python 3 is also installed.
+
+For this workshop we won't care about Python 3 minor versions. But if you'd like to install a particupal Python version together with other versions in the same machine then you might consider using [pyenv](https://github.com/pyenv/pyenv).
 
 1. Use [pyenv-installer](https://github.com/pyenv/pyenv-installer) for installing pyenv
 1. See which python versions are available: `pyenv install --list`
@@ -18,8 +42,43 @@ Also [nodejs](https://nodejs.org/en/) is required for using `eslint` and `jscpd`
 1. Install `nodejs` version `7`
 1. Use `npm` for installing dependencies: `npm install`
 
+Python IDE / Text editor
 
-Optionally Docker and Docker Compose can be installed for development.
+You can use any editor that you like. Here are a couple of choices:
+* Pycharm
+* SublimeText
+* Atom
+* VS.code
+
+The only real IDE of the list is Pycharm which has very usefull debugging tools. There's a free community edition which is great for Django development at: https://www.jetbrains.com/pycharm/download/#section=linux
+
+
+### Fork this repository (or not)
+
+First thing we want to do is to copy all files included here to your own project.
+
+A way to do this is to fork the repository. For this you need to click on the + sign on the left menu and then `Fork this repository`. Unfortunately Bitbucket doesn't let us [detach the fork relationship](https://bitbucket.org/site/master/issues/13645/detach-fork-from-upstream-repository?_ga=2.124476746.1157251317.1554214266-698969354.1525956740) so your repository will always be related to this original repository.
+
+If you want to avoid this you can clone the project and change the `origin` remote:
+
+```
+$ git clone git clone git@bitbucket.org:fjaramendi/django-bootstrap.git
+$ git remote add new git@bitbucket.org:fjaramendi/django-bootstrap-remove.git
+$ git remote remove origin
+$ git remote -v
+$ git push -u origin master
+```
+
+And if you want to remove this project's history and start with only one inital commit you'll need to do this before instead:
+
+```
+$ rm -rf .git
+$ git init
+$ git add .
+$ git commit -m "Removed history, due to sensitive data"
+$ git remote add origin git@bitbucket.org:fjaramendi/django-bootstrap-remove.git
+$ git push -u --force origin master
+```
 
 ### Setting's
 
@@ -89,38 +148,6 @@ To be able to use the "New branch" button from an issue, you need to go to proje
 
 See [this issue](https://gitlab.com/gitlab-org/gitlab-ce/issues/20704)
 
-### Copy milestones, issues and labels
-
-We have a template for software development projects (technology agnostic) that specifies some tasks that we need to do in all the projects and labels to categorize issues.
-
-To copy this structure you have to:
-
-1. Install [gitlab-copy](https://github.com/gotsunami/gitlab-copy#download)
-1. Get a [Gitlab access token](https://gitlab.devartis.com/profile/personal_access_tokens) and put it on [.gitlab-copy.yml](/.gitlab-copy.yml)
-1. Run gitlab-copy: `gitlab-copy -y .gitlab-copy.yml`
-
-## Sonarqube integration
-
-Go to [ccq](https://ccq.devartis.com) and log-in with your gitlab account.
-
-The current `.gitlab-ci.yml` file already has a job that runs a sonar-scanner on master builds.
-You only need to add two secret variables:
-
-- SONARQUBE_TOKEN
-- SONARQUBE_PROJECT_KEY
-
-First, go to https://ccq.devartis.com and create a new project.
-When creating a new project in Sonarqube, a new "project key" will be requested,
-that's the value of `SONARQUBE_PROJECT_KEY`.
-
-After that, go to your profile in https://ccq.devartis.com/account, under [security](https://ccq.devartis.com/account/security/)
-you will be able to generate a new token, this is the value of `SONARQUBE_TOKEN`.
-
-Now go to the repository's settings page in http://gitlab.devartis.com.
-Under **Settings > CI/CD** there's a "Secret variables" section.
-Add these two variables there.
-
-Now on every build on master branch a Sonarqube scanner will be run.
 
 ## Setup slack integration
 
