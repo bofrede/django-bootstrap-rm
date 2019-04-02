@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^4.15.0",
-    "eslint-plugin-promise": "^3.6.0",
-    "jscpd": "^0.6.17"
+    "eslint": "^5.16.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "jscpd": "^2.0.13"
   }
 }
