@@ -29,7 +29,7 @@ USER $APP_USER
 COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
 
-RUN pipenv install
+RUN pipenv install --dev
 
 COPY conf conf/
 COPY project project/

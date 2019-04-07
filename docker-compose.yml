@@ -5,8 +5,6 @@ x-django-app:
   &default-django-app
   build:
     context: .
-    args:
-      requirements: requirements/local.txt # Use local requirements!
   environment:
     DATABASE_URL: postgres://development:development@db:5432/development_db
     DJANGO_SETTINGS_MODULE: conf.settings.local
