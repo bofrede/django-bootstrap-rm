@@ -16,7 +16,7 @@ pipenv run pytest -c scripts/pytest.ini --cov --cov-config scripts/.coveragerc -
 echo "py.test OK :)"
 
 echo "Running eslint"
-npm run eslint
+npx eslint --config scripts/.eslint.js project
 echo "eslint OK :)"
 
 echo "Running jscpd"
