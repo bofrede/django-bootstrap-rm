@@ -8,10 +8,12 @@ That's why we decided to create and maintain template repository with all the re
 ## Requirements
 
 In order to use this project you'll need to have the following tools installed in your development box.
-* Docker
+* Docker & Docker Compose
 * Python 3
 * npm
 * Python editor
+* Bitbucket account
+* Heroku account
 
 ### Docker
 
@@ -38,7 +40,6 @@ For this workshop we won't care about Python 3 minor versions. But if you'd like
 1. See which python versions are available: `pyenv install --list`
 1. Install python 3. Example: `pyenv install 3.6.3` (3.6.3 or higher)
 
-
 ### npm 
 
 Also [nodejs](https://nodejs.org/en/) is required for using `eslint` and `jscpd`.
@@ -51,9 +52,9 @@ Python IDE / Text editor
 
 You can use any editor that you like. Here are a couple of choices:
 * Pycharm
+* VS.code
 * SublimeText
 * Atom
-* VS.code
 
 The only real IDE of the list is Pycharm which has very usefull debugging tools. There's a free community edition which is great for Django development at: https://www.jetbrains.com/pycharm/download/#section=linux
 
@@ -116,12 +117,9 @@ $ python
 ### Setting's
 
 This project adopts [The 12 factor methodology](https://12factor.net/).
-This means the configuration si made by environment variables [(Factor III)](https://12factor.net/config).
+This means the configuration si made by environment variables [(Factor III)](https://12factor.net/config) instead of hardcoding passwords in versioned files.
 
-local py
-shell_plus
-runserver_plus
-debug toolbar
+To start we'll need to copy the two sample files:
 
 ```
 cp conf/settings/local.example.py conf/settings/local.py 
@@ -130,9 +128,21 @@ cp .env.sample .env
 
 ## Docker intro
 
-Fire a python container
-Fire a DB container
-Quick review of compose file
+"A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings."
+We will use Docker to run external dependencies of our project (like a Database or a cache) and also to debug Pipelines.
+
+To fire a python container just run:
+
+`docker run -it --entrypoint=/bin/bash python:3.6.0`
+
+And you can run a DB container by running:
+
+`docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=db mysql`
+`mysql -h127.0.0.1 -proot -uroot`
+
+There’s an easier way to run both containers every time we are working on the project and that’s with the [Docker Compose](https://docs.docker.com/compose/) tool.
+
+`docker-compose.yml` file comes preconfigured with a PostgreSQL database and a Python container that runs your Django app.
 
 ## Setup a development Database
 
@@ -165,22 +175,21 @@ You should have a running Django project to this point.
 
 ## Git hooks
 
-Hooks intro
-
-Some linters require [nodejs](https://nodejs.org/en/).
-Please install nodejs and then run `npm install`.
-
-
-* [Flake8](http://flake8.pycqa.org/en/latest/index.html): `scripts/flake8.sh`
-* [Pylint](https://pylint.readthedocs.io/en/latest/): `scripts/pylint.sh`
-* [Jscpd](https://github.com/kucherenko/jscpd): `scripts/jscpd.sh`
-* [Eslint](https://eslint.org/): `scripts/eslint.sh`
+Git hooks are scripts that Git executes before or after events such as: commit, push, and receive. Git hooks are a built-in feature, so all we need to do is to create a shell script.
 
 ```
 ls -la .git/hooks
 cp scripts/pre-push.sh .git/hooks/pre-push
 cp scripts/commit-msg.sh .git/hooks/commit-msg
 ```
+
+The hooks configured for the project are:
+* [Flake8](http://flake8.pycqa.org/en/latest/index.html): `scripts/flake8.sh`
+* [Pylint](https://pylint.readthedocs.io/en/latest/): `scripts/pylint.sh`
+* [Jscpd](https://github.com/kucherenko/jscpd): `scripts/jscpd.sh`
+* [Eslint](https://eslint.org/): `scripts/eslint.sh`
+
+Since some linters require [nodejs](https://nodejs.org/en/), please install nodejs and then run `npm install`.
 
 ### Test the hooks
 
@@ -217,7 +226,6 @@ To start a Python container
 ```
 $ docker run -it --volume=/home/fara/code/djangocon/django-bootstrap:/django-bootstrap --workdir="/django-bootstrap" --memory=4g --memory-swap=4g --memory-swappiness=0 --entrypoint=/bin/bash python:3.6.0
 ```
-
 
 ## Deployment (Continuous Delivery)
 
@@ -285,5 +293,18 @@ docker run -it --volume=/home/fara/code/djangocon/django-bootstrap-remove:/app -
 
 ### Sentry
 
+[Sentry](https://sentry.io/) Is an open-source error tracking platform that helps developers monitor and fix crashes in real time.
+It's very handy to track errors thrown in production since it sends email digests, groups errors by type and gathers trace info.
+
+There's a very easy way to start tracking your errors with Django and that's thanks to the [Raven client](https://github.com/getsentry/raven-python)
+`production.py` settings already has raven configured, so all you'll need to do is to:
+
+* Start a new Sentry project and get the DSN key
+* Set `RAVEN_DSN` env variable in the production environment
+
 ### NewRelic
 
+NewRelic is a great [APM](https://en.wikipedia.org/wiki/Application_performance_management) tool that's very easy to plug and will become very handy when you need to profile or monitor the performance of your application.
+
+To configure it in Heroku is as simple as enabling the NewRelic agent addon.
+Installing the add-on automatically creates a private New Relic account and configures access for Heroku hosts. New Relic will begin monitoring application performance, end user experience, and host performance collected after the add-on is installed
