@@ -8,12 +8,13 @@ That's why we decided to create and maintain template repository with all the re
 ## Requirements
 
 In order to use this project you'll need to have the following tools installed in your development box.
+
 * Docker & Docker Compose
 * Python 3
 * npm
 * Python editor
-* Bitbucket account
-* Heroku account
+* Bitbucket free account
+* Heroku free account
 
 ### Docker
 
@@ -21,7 +22,7 @@ In order to use this project you'll need to have the following tools installed i
 
 `docker -v`
 
-[docker-compose](https://docs.docker.com/compose/) will be required to launch multiple containers at the same time. Check for the proper installation instractinos here https://docs.docker.com/compose/install/
+[docker-compose](https://docs.docker.com/compose/) will be required to launch multiple containers at the same time. Check for the proper installation instructions here https://docs.docker.com/compose/install/
 
 `docker-compose -v`
 
@@ -45,7 +46,7 @@ For this workshop we won't care about Python 3 minor versions. But if you'd like
 Also [nodejs](https://nodejs.org/en/) is required for using `eslint` and `jscpd`.
 
 1. Install `nodejs`, this could be archived by using [nvm](https://github.com/creationix/nvm).
-1. Install `nodejs` version `7`
+1. Install `nodejs` version `7` or later
 1. Use `npm` for installing dependencies: `npm install`
 
 Python IDE / Text editor
@@ -89,7 +90,11 @@ $ git push -u --force origin master
 Login to your Bitbucket account and make sure your new repository is there as intended.
 
 
-## Dependency management and Virtual environment
+## Dependency management and Virtual environment - Pipenv!
+
+(Pipenv)[https://pipenv.readthedocs.io/en/latest/] "automatically creates and manages a virtualenv for your projects, as well as adds/removes packages from your Pipfile as you install/uninstall packages. It also generates the ever-important Pipfile.lock, which is used to produce deterministic builds."
+
+Pipenv is the official package management tool (recommended by Python)[https://packaging.python.org/tutorials/managing-dependencies/#managing-dependencies].
 
 Python2 is still the default Python installation.
 
@@ -116,8 +121,10 @@ $ python
 
 ### Setting's
 
-This project adopts [The 12 factor methodology](https://12factor.net/).
-This means the configuration si made by environment variables [(Factor III)](https://12factor.net/config) instead of hardcoding passwords in versioned files.
+We created multiple settings files for the different environments. Take a look at the settings directory.
+
+Also, this project adopts [The 12 factor methodology](https://12factor.net/).
+This means the configuration is made by environment variables [(Factor III)](https://12factor.net/config) instead of hardcoding passwords in versioned files.
 
 To start we'll need to copy the two sample files:
 
@@ -131,7 +138,7 @@ cp .env.sample .env
 "A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings."
 We will use Docker to run external dependencies of our project (like a Database or a cache) and also to debug Pipelines.
 
-To fire a python container just run:
+To fire a python container run:
 
 `docker run -it --entrypoint=/bin/bash python:3.6.0`
 
@@ -175,7 +182,7 @@ You should have a running Django project to this point.
 
 ## Git hooks
 
-Git hooks are scripts that Git executes before or after events such as: commit, push, and receive. Git hooks are a built-in feature, so all we need to do is to create a shell script.
+Git hooks are scripts that Git executes before or after specific events such as: commit, push, and receive. Git hooks are a built-in feature, so all we need to do is to create a shell script.
 
 ```
 ls -la .git/hooks
@@ -196,7 +203,7 @@ Since some linters require [nodejs](https://nodejs.org/en/), please install node
 Modify a file with a PEP8 violation
 
 ```
-git commit --amend
+git commit
 git push
 ```
 Fix
@@ -239,7 +246,7 @@ Install Heroku cli following the instructions for your OS at https://devcenter.h
 
 Heroku looks for a `Procfile` in order to understand how to run your app. Open it.
 
-The easiest way to deploy to Heroku would be to just push to it's remote:
+The easiest way to deploy to Heroku would be to push to it's remote:
 ```
 heroku login
 heroku git:remote -a django-boostrap
@@ -255,7 +262,7 @@ heroku login
 heroku authorizations:create -d "getting started token"
 ```
 
-Set the token and application name as a variables in Bitbucket. Settings->Pipelines->Repository Variables
+Set the token and application name as a variables in Bitbucket. Settings -> Pipelines -> Repository Variables
 
 Test deploy. It will fail
 Open Heroku logs
@@ -308,3 +315,7 @@ NewRelic is a great [APM](https://en.wikipedia.org/wiki/Application_performance_
 
 To configure it in Heroku is as simple as enabling the NewRelic agent addon.
 Installing the add-on automatically creates a private New Relic account and configures access for Heroku hosts. New Relic will begin monitoring application performance, end user experience, and host performance collected after the add-on is installed
+
+## Credits
+
+Developed by [devartis](https://www.devartis.com)
