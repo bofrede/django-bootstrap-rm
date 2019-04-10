@@ -92,9 +92,9 @@ Login to your Bitbucket account and make sure your new repository is there as in
 
 ## Dependency management and Virtual environment - Pipenv!
 
-(Pipenv)[https://pipenv.readthedocs.io/en/latest/] "automatically creates and manages a virtualenv for your projects, as well as adds/removes packages from your Pipfile as you install/uninstall packages. It also generates the ever-important Pipfile.lock, which is used to produce deterministic builds."
+[Pipenv](https://pipenv.readthedocs.io/en/latest/) "automatically creates and manages a virtualenv for your projects, as well as adds/removes packages from your Pipfile as you install/uninstall packages. It also generates the ever-important Pipfile.lock, which is used to produce deterministic builds."
 
-Pipenv is the official package management tool (recommended by Python)[https://packaging.python.org/tutorials/managing-dependencies/#managing-dependencies].
+Pipenv is the official package management tool [recommended by Python](https://packaging.python.org/tutorials/managing-dependencies/#managing-dependencies).
 
 Python2 is still the default Python installation.
 
@@ -191,6 +191,7 @@ cp scripts/commit-msg.sh .git/hooks/commit-msg
 ```
 
 The hooks configured for the project are:
+
 * [Flake8](http://flake8.pycqa.org/en/latest/index.html): `scripts/flake8.sh`
 * [Pylint](https://pylint.readthedocs.io/en/latest/): `scripts/pylint.sh`
 * [Jscpd](https://github.com/kucherenko/jscpd): `scripts/jscpd.sh`
